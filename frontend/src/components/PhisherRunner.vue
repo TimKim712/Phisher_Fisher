@@ -1,5 +1,7 @@
 <template>
-  <div class="phisher_detector flex flex-col items-center space-y-3 mt-20">
+  <div
+    class="phisher_detector flex flex-col items-center space-x-3 space-y-3 mt-20"
+  >
     <input
       type="text"
       v-model="userMessage"
