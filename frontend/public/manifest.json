@@ -1,0 +1,16 @@
+{
+    "manifest_version": 3,
+    "name": "Phisher Fisher",
+    "version": "1.0",
+    "description": "An extension to detect whether a message is phishing or legitimate",
+    "permissions": [
+      "activeTab"
+    ],
+    "host_permissions": [
+      "http://127.0.0.1:5000/*"
+    ],
+    "action": {
+      "default_popup": "popup.html"
+    }
+  }
+  
