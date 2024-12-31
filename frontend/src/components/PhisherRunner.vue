@@ -8,9 +8,14 @@
       placeholder="Enter suspected message"
       class="p-1 border rounded w-64"
     />
-    <button @click="sendReq" class="p-2 bg-teal-950 text-white rounded">
+    <button @click="fetchResponse" class="p-2 bg-teal-950 text-white rounded">
       Check
     </button>
+
+    <div class="response_display">
+      <p>Model Response: {{ modelResponse }}</p>
+      <p>Model Confidence: {{ modelConfidence }}</p>
+    </div>
   </div>
 </template>
 
@@ -18,27 +23,33 @@
 export default {
   data() {
     return {
+      showResults: false,
       userMessage: "",
+      modelResponse: "",
+      modelConfidence: "",
     };
   },
   methods: {
-    sendReq() {
-      fetch("http://127.0.0.1:5000/test", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          message: this.userMessage,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
+    async fetchResponse() {
+      try {
+        const response = await fetch("http://127.0.0.1:5000/predict", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            message: this.userMessage,
+          }),
         })
-        .catch((err) => {
-          console.log(err);
-        });
+          .then((response) => response.json())
+          .then((data) => {
+            this.modelResponse = data.result;
+            this.modelConfidence = data.confidence;
+            console.log(data);
+          });
+      } catch (err) {
+        console.error(err);
+      }
     },
   },
 };
