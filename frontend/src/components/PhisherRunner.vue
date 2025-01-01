@@ -12,9 +12,18 @@
       Check
     </button>
 
-    <div class="response_display">
-      <p>Model Response: {{ modelResponse }}</p>
-      <p>Model Confidence: {{ modelConfidence }}</p>
+    <div class="response_display" v-if="showResults === true">
+      <p class="modelResponse font-mono font-semibold">
+        Model Response:
+        <span
+          :class="
+            modelResponse === 'Phishing' ? 'text-red-700' : 'text-green-700'
+          "
+        >
+          {{ modelResponse }}
+        </span>
+      </p>
+      <p class = "modelConfidence font-mono font-semibold">Model Confidence: {{ modelConfidence }}</p>
     </div>
   </div>
 </template>
@@ -43,6 +52,7 @@ export default {
         })
           .then((response) => response.json())
           .then((data) => {
+            this.showResults = true;
             this.modelResponse = data.result;
             this.modelConfidence = data.confidence;
             console.log(data);

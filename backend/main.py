@@ -41,7 +41,8 @@ def predict():
 
     # Prepare the result
     predicted_result = "Phishing" if scores[1] > scores[0] else "Innocent"
-    confidence = round(100*scores[1]) if predicted_result == "Phishing" else round(100*scores[0])
+    confidence = str(round(
+        100*scores[1]))+'%' if predicted_result == "Phishing" else str(round(100*scores[0]))+'%'
     return jsonify({
         "input": input_text,
         "result": predicted_result,
