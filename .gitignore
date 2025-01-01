@@ -2,6 +2,7 @@
 node_modules
 /dist
 model/saved_model
+frontend/dist
 
 # local env files
 .env.local
